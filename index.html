@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#131c30">
+<title>PocketAnthem • YuE2 Prompt Studio</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#151d32;--panel2:#1d2940;--line:#34405a;--fg:#f1f5ff;--muted:#a7b4d0;--accent:#85e6cc;--accent2:#b3a0ff;--radius:16px;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 20% -10%,#203550 0%,transparent 44%),var(--bg);color:var(--fg);min-height:100vh}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.top{position:sticky;z-index:10;top:0;background:#10172af2;backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}.topinner{max-width:1500px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:13px 20px}.brand{display:flex;align-items:center;gap:12px}.logo{height:41px;width:41px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,#6ee8c3,#aa91fa);color:#102137;font-size:23px;font-weight:900}.brand strong{display:block;font-size:17px;letter-spacing:-.3px}.brand small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.topactions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+button{border-radius:10px;border:1px solid var(--line);background:#25324a;color:var(--fg);min-height:39px;padding:9px 13px;font-weight:650;font-size:13px}button:hover{border-color:#7089aa;background:#2c3a54}button.primary{background:var(--accent);color:#09231e;border-color:transparent}button.primary:hover{background:#b5f8e5}button.ghost{background:transparent}.danger{color:#ffc6cb}.shell{max-width:1500px;margin:auto;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(340px,.85fr);gap:18px;padding:19px 20px 45px}.pane{min-width:0}.hero{margin-bottom:16px}.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:11px;color:var(--accent);font-weight:800}.hero h1{font-size:clamp(22px,3vw,33px);margin:5px 0 5px;letter-spacing:-1px}.hero p{color:var(--muted);font-size:14px;line-height:1.55;margin:0}.sectionbox{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;margin-bottom:14px}.boxhead{padding:17px 18px;border-bottom:1px solid var(--line)}.boxhead h2,.preview h2{font-size:16px;margin:0 0 5px}.subtext{font-size:12px;line-height:1.5;color:var(--muted)}.searchbar{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--line)}input[type=search],input[type=text],select,textarea{background:#0e162a;border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:11px;width:100%;min-width:0}input[type=search]::placeholder,textarea::placeholder{color:#8390ab}.categories{display:flex;gap:7px;overflow:auto;padding:12px 14px;scrollbar-width:thin}.chip{flex:0 0 auto;white-space:nowrap;background:#18243a;border-color:#33445d;border-radius:999px;min-height:33px;padding:7px 11px;font-size:12px}.chip.on{background:#204c49;border-color:#71d9ba;color:#b5ffea}.count{font-size:12px;color:var(--muted);padding:0 15px 10px}.items{max-height:65vh;overflow:auto;padding:0 12px 14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;align-content:start}.item{position:relative;display:block;padding:12px 12px 12px 40px;border:1px solid var(--line);border-radius:12px;background:#19243a;cursor:pointer;min-height:109px}.item:has(input:checked){background:#1c3b40;border-color:var(--accent)}.item input{position:absolute;top:13px;left:13px;width:17px;height:17px;accent-color:var(--accent)}.itemtitle{display:block;font-size:13px;font-weight:750;margin-bottom:7px}.itemprompt{display:block;color:var(--muted);font-size:11px;line-height:1.48;overflow-wrap:anywhere}.itemcat{display:block;color:#91b4c6;font-size:10px;letter-spacing:.3px;margin-top:9px}.preview{position:sticky;top:86px;align-self:start}.previewbody{padding:16px}.label{font-size:11px;letter-spacing:1px;color:var(--accent);text-transform:uppercase;font-weight:800}.statline{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.stat{font-size:11px;padding:6px 9px;background:#223149;border-radius:999px;color:#cfdaed}.textarea{width:100%;resize:vertical;line-height:1.6;font-size:13px;min-height:132px;white-space:pre-wrap}.output{min-height:170px;background:#0b1325;border-color:#536078}.muted{color:var(--muted)}.previewbuttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}.previewbuttons>*{flex:1}.field{margin:13px 0}.fieldlabel{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-bottom:8px;font-size:13px;font-weight:700}.fieldlabel small{color:var(--muted);font-weight:400}.inlinecheck{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}.inlinecheck input{width:17px;height:17px;accent-color:var(--accent)}.details{border-top:1px solid var(--line);padding:12px 16px}.details summary{font-weight:700;cursor:pointer;font-size:13px}.detailcontent{padding-top:10px}.hint{font-size:12px;color:#bfcbe0;line-height:1.55;padding:11px;border-radius:10px;background:#192d3c;margin-top:11px}.warning{background:#44331f;color:#ffe5bc}.savedrow{display:flex;gap:7px;margin-top:9px}.savedrow select{flex:1}.tiny{font-size:11px;line-height:1.6;color:var(--muted)}.empty{text-align:center;padding:22px;color:var(--muted);grid-column:1/-1}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#caefe4;color:#0a2423;z-index:100;padding:12px 19px;border-radius:12px;font-size:14px;font-weight:750;box-shadow:0 10px 40px #0008;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}.foot{max-width:1500px;margin:auto;padding:0 20px 32px;color:#98a7c0;font-size:12px;line-height:1.6}.foot a{color:#95e9d5}.split{display:flex;gap:8px}.split>*{flex:1}.pillmark{font-size:10px;background:#30524c;color:#a4f9d8;border-radius:999px;padding:2px 7px;margin-left:5px}
+@media(max-width:1050px){.shell{grid-template-columns:1fr}.preview{position:static}.items{max-height:none}.top{position:static}}@media(max-width:620px){.shell{padding:13px 12px 30px}.topinner{padding:10px 12px;align-items:flex-start}.brand strong{font-size:14px}.topactions button{padding:8px 9px;font-size:11px}.items{grid-template-columns:1fr}.item{min-height:70px}.brand small{font-size:10px}.topactions{justify-content:flex-end}.hero h1{font-size:24px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head><body>
+<header class="top"><div class="topinner"><div class="brand"><div class="logo" aria-hidden="true">♫</div><div><strong>PocketAnthem Prompt Studio</strong><small>YuE2-focused · Offline · iPad friendly</small></div></div><div class="topactions"><button id="presetBtn" class="ghost">✦ Surprise me</button><button id="exportBtn" class="ghost">⇩ Export</button><button id="importBtn" class="ghost">⇧ Import</button><input id="importFile" type="file" accept=".json,application/json" hidden></div></div></header>
+<main class="shell"><section class="pane"><div class="hero"><div class="eyebrow">Build your signature sound</div><h1>Mix, match, make music.</h1><p>Choose one or more ideas from every section. Your selected descriptors become a single YuE2-style prompt, ready for PocketAnthem. All 52 original library prompts are included, plus new creative controls.</p></div>
+<section class="sectionbox"><div class="boxhead"><h2>1 · Choose your ingredients <span id="selectedBadge" class="pillmark">0 selected</span></h2><div class="subtext">You can combine categories freely. Start with a complete recipe, or build from individual voice, genre and arrangement ideas.</div></div><div class="searchbar"><input id="search" type="search" placeholder="Search smoky, acoustic, duet, synthwave…" aria-label="Search prompts"><button id="clearSearch" class="ghost" title="Clear search">✕</button></div><nav class="categories" id="categories" aria-label="Prompt categories"></nav><div class="count" id="resultCount"></div><div class="items" id="items"></div></section>
+<section class="sectionbox"><div class="boxhead"><h2>2 · Quick starting presets</h2><div class="subtext">Tap a combination to replace your current selection. You can then customise it.</div></div><div class="previewbody" id="presetGrid" style="display:flex;flex-wrap:wrap;gap:8px"></div></section>
+</section>
+<aside class="pane preview"><section class="sectionbox"><div class="boxhead"><h2>3 · Your PocketAnthem prompt</h2><div class="subtext">YuE2 uses a <b>style</b> input for how music should sound and a separate <b>lyrics</b> input for what is sung. The style box below is the main combined prompt.</div><div class="statline"><span class="stat" id="partsStat">0 ingredients</span><span class="stat" id="charsStat">0 characters</span><span class="stat" id="wordsStat">0 words</span></div></div><div class="previewbody">
+<div class="field"><label class="fieldlabel" for="styleOutput"><span>COMBINED STYLE PROMPT</span><small>Editable before copying</small></label><textarea id="styleOutput" class="textarea output" spellcheck="true" placeholder="Select prompt ingredients to build a combined style description…"></textarea><div class="previewbuttons"><button class="primary" id="copyStyle">⧉ Copy style prompt</button><button id="refreshStyle">↻ Rebuild</button></div></div>
+<div class="field"><label class="fieldlabel" for="customStyle">Add your own instructions <small>Optional</small></label><textarea id="customStyle" class="textarea" rows="2" style="min-height:68px" placeholder="e.g. Keep the chorus sparse and the vocal up front."></textarea></div>
+<div id="warning" class="hint warning" hidden></div>
+<details class="details" open><summary>Lyrics & song structure (optional)</summary><div class="detailcontent"><label class="inlinecheck"><input type="checkbox" id="lyricsEnabled"> Include lyrics in the full export</label><div class="field"><label class="fieldlabel" for="lyrics">LYRICS <small>Keep lyrics separate from style</small></label><textarea id="lyrics" class="textarea" rows="8" placeholder="[Verse]\nYour first line here\nYour next line here\n\n[Chorus]\nYour chorus goes here"></textarea><div class="previewbuttons"><button id="demoLyrics">Insert example layout</button><button id="copyLyrics">⧉ Copy lyrics</button></div></div><div class="hint">Use tags like <b>[Verse]</b>, <b>[Chorus]</b>, <b>[Bridge]</b> and <b>[Outro]</b>, each on its own line. Enter words to be sung only. Keep production guidance in the style field.</div></div></details>
+<details class="details"><summary>Save & reuse combinations</summary><div class="detailcontent"><div class="split"><input id="saveName" type="text" placeholder="Name this sound…"><button class="primary" id="saveBtn">Save</button></div><div class="savedrow"><select id="savedSelect" aria-label="Saved combinations"><option value="">No saved combinations</option></select><button id="loadBtn">Load</button><button id="deleteBtn" class="danger" title="Delete selected saved combination">Delete</button></div><p class="tiny">Saved combinations are stored in this browser on this device. Export a JSON backup to transfer them or keep them safe.</p></div></details>
+<details class="details"><summary>Virtual singer identity & experiments</summary><div class="detailcontent"><p class="tiny">For a recognisable recurring singer, give them a stable combination of register, timbre, pronunciation and phrasing. Reuse the same descriptors across songs; consistent identity is not guaranteed by style text alone.</p><label class="fieldlabel" for="singerName">Singer nickname <small>For your notes, not sung</small></label><input id="singerName" type="text" placeholder="e.g. The Velvet Alto"><div class="hint">Try five takes with the same style and lyrics. Then change one characteristic at a time. Compare diction, naturalness and whether the singer sounds like the same person.</div></div></details>
+<div class="field"><div class="previewbuttons"><button id="copyFull">⧉ Copy style + lyrics</button><button id="downloadTxt">⇩ Save as .txt</button><button id="resetBtn" class="danger">Clear selections</button></div></div>
+</div></section></aside></main>
+<footer class="foot"><b>PocketAnthem Prompt Studio</b> · Standalone, single-file HTML · No accounts, network calls or external scripts. Prompt text is editable and not guaranteed to be interpreted literally by the model. <a href="https://github.com/VincentGourbin/yue2-mlx-swift" target="_blank" rel="noopener">YuE2 MLX Swift technical reference</a>. Avoid imitating identifiable performers without consent; check model and app usage terms for publication.</footer><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const PROMPTS=[
+  {
+    "id": "p01",
+    "section": "Voices",
+    "title": "Warm smoky alto",
+    "prompt": "Warm low-register alto singer, smoky rounded timbre, intimate close-mic delivery, natural breath and subtle vibrato, emotionally restrained."
+  },
+  {
+    "id": "p02",
+    "section": "Voices",
+    "title": "Airy soprano",
+    "prompt": "Light airy high soprano, delicate head voice, whisper-soft consonants, floating sustained notes, gentle and vulnerable."
+  },
+  {
+    "id": "p03",
+    "section": "Voices",
+    "title": "Gravelly baritone",
+    "prompt": "Low gravelly baritone, rough edges and textured vowels, conversational phrasing, controlled grit, authentic live-room sound."
+  },
+  {
+    "id": "p04",
+    "section": "Voices",
+    "title": "Clear tenor",
+    "prompt": "Bright clear tenor, focused tone, crisp diction, smooth legato, controlled upper notes, youthful optimism."
+  },
+  {
+    "id": "p05",
+    "section": "Voices",
+    "title": "Rich contralto",
+    "prompt": "Deep resonant contralto, velvety low notes, measured phrasing, subtle rasp, sophisticated soulful expression."
+  },
+  {
+    "id": "p06",
+    "section": "Voices",
+    "title": "Soulful belter",
+    "prompt": "Powerful soulful singer, chest-voice energy, dynamic belts and gospel-inspired melisma, expressive vibrato without oversinging."
+  },
+  {
+    "id": "p07",
+    "section": "Voices",
+    "title": "Fragile indie",
+    "prompt": "Unpolished indie vocalist, slightly nasal timbre, soft conversational delivery, small pitch slides, sincere emotional understatement."
+  },
+  {
+    "id": "p08",
+    "section": "Voices",
+    "title": "Vintage crooner",
+    "prompt": "Smooth mid-low crooner, rounded vowels, relaxed swing timing, gentle vibrato, classic intimate jazz-club microphone sound."
+  },
+  {
+    "id": "p09",
+    "section": "Voices",
+    "title": "Country storyteller",
+    "prompt": "Earthy country singer, lightly twangy vowels, clear storytelling diction, understated ornamentation, warm lived-in delivery."
+  },
+  {
+    "id": "p10",
+    "section": "Voices",
+    "title": "Rock powerhouse",
+    "prompt": "Edgy mid-register rock vocalist, controlled rasp, strong projection, urgent consonants, soaring chorus with gritty sustain."
+  },
+  {
+    "id": "p11",
+    "section": "Voices",
+    "title": "Ethereal choral",
+    "prompt": "Pure floating solo vocal, smooth head register, minimal vibrato, sustained vowels, spacious celestial ambience."
+  },
+  {
+    "id": "p12",
+    "section": "Voices",
+    "title": "Spoken-sung",
+    "prompt": "Half-spoken melodic vocalist, dry intimate delivery, rhythmic conversational phrasing, minimal vibrato, subtle vocal character."
+  },
+  {
+    "id": "p13",
+    "section": "Genres & arrangements",
+    "title": "Acoustic folk",
+    "prompt": "Acoustic folk song, fingerpicked guitar, upright bass and soft cello, organic room ambience, warm low alto, memorable uncluttered chorus."
+  },
+  {
+    "id": "p14",
+    "section": "Genres & arrangements",
+    "title": "Cinematic piano ballad",
+    "prompt": "Cinematic piano ballad, sparse opening piano, swelling strings, clear expressive tenor, gradual crescendo, bittersweet resolution."
+  },
+  {
+    "id": "p15",
+    "section": "Genres & arrangements",
+    "title": "Soul / R&B",
+    "prompt": "Modern neo-soul, Rhodes electric piano, warm bass, laid-back drums, richly textured alto, subtle vocal runs and intimate mix."
+  },
+  {
+    "id": "p16",
+    "section": "Genres & arrangements",
+    "title": "Classic jazz",
+    "prompt": "Small-combo jazz ballad, brushed drums, upright bass, mellow piano, smoky crooner, behind-the-beat phrasing, vintage club atmosphere."
+  },
+  {
+    "id": "p17",
+    "section": "Genres & arrangements",
+    "title": "Indie pop",
+    "prompt": "Bright indie pop, jangly guitars, melodic synth bass, punchy drums, understated airy lead vocal, hook-forward chorus."
+  },
+  {
+    "id": "p18",
+    "section": "Genres & arrangements",
+    "title": "Dream pop",
+    "prompt": "Dream pop, shimmering guitars and hazy synth pads, delicate soprano, slow floating rhythm, lush reverb, wistful nocturnal mood."
+  },
+  {
+    "id": "p19",
+    "section": "Genres & arrangements",
+    "title": "Country Americana",
+    "prompt": "Americana ballad, acoustic guitar, pedal steel, fiddle accents, earthy storyteller vocal, spacious natural arrangement."
+  },
+  {
+    "id": "p20",
+    "section": "Genres & arrangements",
+    "title": "Blues rock",
+    "prompt": "Mid-tempo blues rock, crunchy electric guitar, organ and live drums, gravelly male vocal, gritty call-and-response chorus."
+  },
+  {
+    "id": "p21",
+    "section": "Genres & arrangements",
+    "title": "Synthwave",
+    "prompt": "Retro synthwave, analog arpeggios, gated snare and pulsing bass, cool breathy lead, neon-night atmosphere, wide stereo mix."
+  },
+  {
+    "id": "p22",
+    "section": "Genres & arrangements",
+    "title": "Orchestral pop",
+    "prompt": "Orchestral pop, piano, strings and restrained electronic percussion, rich resonant contralto, soaring emotional refrain."
+  },
+  {
+    "id": "p23",
+    "section": "Genres & arrangements",
+    "title": "Funk",
+    "prompt": "Tight funk groove, syncopated bass, clipped rhythm guitar, horn stabs, playful rhythmic lead vocal, energetic dry production."
+  },
+  {
+    "id": "p24",
+    "section": "Genres & arrangements",
+    "title": "Ambient / atmospheric",
+    "prompt": "Slow ambient vocal piece, soft drones, glistening textures, wordless ethereal solo voice, long reverberant tails, quiet contemplation."
+  },
+  {
+    "id": "p25",
+    "section": "Emotion & delivery",
+    "title": "Vulnerable",
+    "prompt": "Soft vulnerable vocal, audible breath, intimate phrasing, delicate dynamic changes, minimal effects, feeling of a private confession."
+  },
+  {
+    "id": "p26",
+    "section": "Emotion & delivery",
+    "title": "Hopeful",
+    "prompt": "Clear optimistic singing, open vowels, forward momentum, gradually growing confidence, uplifting but not theatrical."
+  },
+  {
+    "id": "p27",
+    "section": "Emotion & delivery",
+    "title": "Heartbroken",
+    "prompt": "Tender restrained sorrow, slow phrases, slight cracks in the voice, minimal ornamentation, avoid exaggerated sobbing."
+  },
+  {
+    "id": "p28",
+    "section": "Emotion & delivery",
+    "title": "Defiant",
+    "prompt": "Urgent defiant lead, percussive consonants, forceful chorus, strong chest register, raw energy without harsh distortion."
+  },
+  {
+    "id": "p29",
+    "section": "Emotion & delivery",
+    "title": "Nostalgic",
+    "prompt": "Warm nostalgic lead, gentle vibrato, softened articulation, a reflective slightly distant quality, intimate memories."
+  },
+  {
+    "id": "p30",
+    "section": "Emotion & delivery",
+    "title": "Playful",
+    "prompt": "Light mischievous delivery, rhythmic phrasing, bouncy articulation, smiling tone, quick shifts of intensity."
+  },
+  {
+    "id": "p31",
+    "section": "Emotion & delivery",
+    "title": "Mysterious",
+    "prompt": "Low breathy voice, sparse phrasing, shadowy timbre, long quiet pauses, restrained tension."
+  },
+  {
+    "id": "p32",
+    "section": "Emotion & delivery",
+    "title": "Triumphant",
+    "prompt": "Confident soaring lead, expansive vowels, gradual dynamic build, sustained final notes, celebratory release."
+  },
+  {
+    "id": "p33",
+    "section": "Harmonies & ensembles",
+    "title": "Intimate duet",
+    "prompt": "Duet with contrasting low warm and high airy voices, alternate lines in verses, sing the chorus together in close harmony."
+  },
+  {
+    "id": "p34",
+    "section": "Harmonies & ensembles",
+    "title": "Call and response",
+    "prompt": "Soulful lead singer with small backing vocal group answering the last phrase of each chorus line, lively gospel-inspired interplay."
+  },
+  {
+    "id": "p35",
+    "section": "Harmonies & ensembles",
+    "title": "Three-part harmony",
+    "prompt": "Clear lead melody supported by two close supporting vocal harmony lines in choruses, natural blend, avoid overpowering the lead."
+  },
+  {
+    "id": "p36",
+    "section": "Harmonies & ensembles",
+    "title": "Unison group",
+    "prompt": "Small unison group singing an anthemic chorus with slight natural timing differences, human collective energy."
+  },
+  {
+    "id": "p37",
+    "section": "Harmonies & ensembles",
+    "title": "Wordless vocal layers",
+    "prompt": "Breathy wordless “ooh” and “ah” harmony pads behind a sparse instrumental arrangement, soft and cinematic."
+  },
+  {
+    "id": "p38",
+    "section": "Production",
+    "title": "Dry studio intimacy",
+    "prompt": "Close-mic vocal with minimal reverb, natural breath and mouth detail, gentle compression, small-room recording atmosphere."
+  },
+  {
+    "id": "p39",
+    "section": "Production",
+    "title": "Vintage tape",
+    "prompt": "Warm vintage recording, light tape saturation, softened high frequencies, narrow stereo image, classic analog vocal presence."
+  },
+  {
+    "id": "p40",
+    "section": "Production",
+    "title": "Live concert",
+    "prompt": "Energetic live-band sound, subtle room reflections, natural performance imperfections, wide dynamics, clear lead vocal."
+  },
+  {
+    "id": "p41",
+    "section": "Production",
+    "title": "Glossy contemporary",
+    "prompt": "Clean modern pop production, polished vocal layers, controlled sibilance, precise drums, clear bass and expansive chorus."
+  },
+  {
+    "id": "p42",
+    "section": "Production",
+    "title": "Lo-fi bedroom",
+    "prompt": "Bedroom-demo aesthetic, simple instrumentation, faint ambient noise, slightly rough vocal takes, intimate homemade warmth."
+  },
+  {
+    "id": "p43",
+    "section": "Production",
+    "title": "Minimal unplugged",
+    "prompt": "Voice and one acoustic instrument only, no choir or large percussion, leave silence between lines, preserve expressive dynamics."
+  },
+  {
+    "id": "p44",
+    "section": "Instrumental",
+    "title": "Gentle piano",
+    "prompt": "Instrumental solo felt piano, slow lyrical melody, soft dynamics, reflective mood, no vocals or spoken words."
+  },
+  {
+    "id": "p45",
+    "section": "Instrumental",
+    "title": "Guitar landscape",
+    "prompt": "Instrumental fingerpicked acoustic guitar with subtle cello and atmospheric pads, unhurried evolving melody, no vocals."
+  },
+  {
+    "id": "p46",
+    "section": "Instrumental",
+    "title": "Film underscore",
+    "prompt": "Instrumental cinematic underscore, low strings, quiet piano motifs, gradual tension and resolution, no singing or speech."
+  },
+  {
+    "id": "p47",
+    "section": "Instrumental",
+    "title": "Electronic groove",
+    "prompt": "Instrumental downtempo electronica, warm synth bass, crisp broken beats and drifting analog pads, no vocals."
+  },
+  {
+    "id": "p48",
+    "section": "Complete recipes",
+    "title": "Honest acoustic singer-songwriter",
+    "prompt": "Intimate singer-songwriter folk, fingerpicked acoustic guitar and soft cello, slightly husky low alto, conversational verses, warm emotional chorus, organic dry production."
+  },
+  {
+    "id": "p49",
+    "section": "Complete recipes",
+    "title": "Dramatic modern ballad",
+    "prompt": "Cinematic pop ballad, delicate piano verses and swelling strings, clear powerful tenor, controlled emotional build, wide soaring chorus, polished studio sound."
+  },
+  {
+    "id": "p50",
+    "section": "Complete recipes",
+    "title": "Unusual art-pop vocal",
+    "prompt": "Minimal art-pop, unusual clipped percussion and soft synths, androgynous mid-register lead with slightly nasal tone, unconventional phrasing, restrained atmospheric production."
+  },
+  {
+    "id": "p51",
+    "section": "Complete recipes",
+    "title": "Moody blues voice",
+    "prompt": "Slow electric blues, expressive guitar bends and Hammond-style organ, deep rough-edged baritone, behind-the-beat vocal delivery, warm live-room recording."
+  },
+  {
+    "id": "p52",
+    "section": "Complete recipes",
+    "title": "Gentle dream-pop soprano",
+    "prompt": "Dreamy slow pop, shimmering guitar and spacious pads, high airy soprano, nearly straight-tone verses and gentle vibrato at phrase endings, soft distant harmonies."
+  },
+  {
+    "id": "xlanguagesaccents0",
+    "section": "Languages & accents",
+    "title": "English language",
+    "prompt": "English-language singing with natural, clearly articulated lyrics."
+  },
+  {
+    "id": "xlanguagesaccents1",
+    "section": "Languages & accents",
+    "title": "Gentle British vowels",
+    "prompt": "Gentle contemporary British English vowel colouring and natural diction."
+  },
+  {
+    "id": "xlanguagesaccents2",
+    "section": "Languages & accents",
+    "title": "American English",
+    "prompt": "Contemporary American English pronunciation, relaxed and conversational."
+  },
+  {
+    "id": "xlanguagesaccents3",
+    "section": "Languages & accents",
+    "title": "Irish-inspired lilt",
+    "prompt": "Subtle Irish-influenced English lilt and flowing melodic phrasing."
+  },
+  {
+    "id": "xlanguagesaccents4",
+    "section": "Languages & accents",
+    "title": "French lyrics",
+    "prompt": "French-language lead vocal with clear pronunciation and elegant phrasing."
+  },
+  {
+    "id": "xlanguagesaccents5",
+    "section": "Languages & accents",
+    "title": "Spanish lyrics",
+    "prompt": "Spanish-language lead vocal with rhythmic, clear syllables and warm articulation."
+  },
+  {
+    "id": "xlanguagesaccents6",
+    "section": "Languages & accents",
+    "title": "Wordless vocals",
+    "prompt": "Wordless vocalisation only, using sustained ooh and ah phrases rather than sung lyrics."
+  },
+  {
+    "id": "xtempogroove0",
+    "section": "Tempo & groove",
+    "title": "Slow ballad",
+    "prompt": "Slow, unhurried ballad pulse around 65–75 BPM."
+  },
+  {
+    "id": "xtempogroove1",
+    "section": "Tempo & groove",
+    "title": "Relaxed mid-tempo",
+    "prompt": "Relaxed mid-tempo groove around 85–100 BPM."
+  },
+  {
+    "id": "xtempogroove2",
+    "section": "Tempo & groove",
+    "title": "Upbeat",
+    "prompt": "Brisk, upbeat groove around 115–130 BPM."
+  },
+  {
+    "id": "xtempogroove3",
+    "section": "Tempo & groove",
+    "title": "Half-time feel",
+    "prompt": "Spacious half-time drum feel and long vocal phrases."
+  },
+  {
+    "id": "xtempogroove4",
+    "section": "Tempo & groove",
+    "title": "Swing feel",
+    "prompt": "Gentle swung rhythm, with relaxed behind-the-beat vocal timing."
+  },
+  {
+    "id": "xtempogroove5",
+    "section": "Tempo & groove",
+    "title": "Waltz",
+    "prompt": "Flowing three-beat waltz rhythm and lilting melodic phrasing."
+  },
+  {
+    "id": "xtempogroove6",
+    "section": "Tempo & groove",
+    "title": "Syncopated",
+    "prompt": "Syncopated bass and drums with rhythmically playful vocals."
+  },
+  {
+    "id": "xinstrumentstextures0",
+    "section": "Instruments & textures",
+    "title": "Fingerpicked guitar",
+    "prompt": "Fingerpicked acoustic guitar carrying the harmonic pulse."
+  },
+  {
+    "id": "xinstrumentstextures1",
+    "section": "Instruments & textures",
+    "title": "Felt piano",
+    "prompt": "Soft felt-piano melody with audible natural dynamics."
+  },
+  {
+    "id": "xinstrumentstextures2",
+    "section": "Instruments & textures",
+    "title": "Rhodes keys",
+    "prompt": "Warm Rhodes electric piano chords and subtle fills."
+  },
+  {
+    "id": "xinstrumentstextures3",
+    "section": "Instruments & textures",
+    "title": "Upright bass",
+    "prompt": "Rounded upright bass with a natural, lightly percussive tone."
+  },
+  {
+    "id": "xinstrumentstextures4",
+    "section": "Instruments & textures",
+    "title": "Warm strings",
+    "prompt": "Warm cello and string ensemble swelling behind key vocal phrases."
+  },
+  {
+    "id": "xinstrumentstextures5",
+    "section": "Instruments & textures",
+    "title": "Pedal steel",
+    "prompt": "Subtle expressive pedal-steel guitar answering vocal lines."
+  },
+  {
+    "id": "xinstrumentstextures6",
+    "section": "Instruments & textures",
+    "title": "Analog synths",
+    "prompt": "Rounded analog synthesizers, textured pads and restrained arpeggios."
+  },
+  {
+    "id": "xinstrumentstextures7",
+    "section": "Instruments & textures",
+    "title": "Live drums",
+    "prompt": "Natural live drum kit with understated room sound."
+  },
+  {
+    "id": "xinstrumentstextures8",
+    "section": "Instruments & textures",
+    "title": "Minimal percussion",
+    "prompt": "Light brushed percussion, no heavy kick or aggressive snare."
+  },
+  {
+    "id": "xinstrumentstextures9",
+    "section": "Instruments & textures",
+    "title": "Horn accents",
+    "prompt": "Short brass accents in choruses, leaving space for the singer."
+  },
+  {
+    "id": "xsongstructure0",
+    "section": "Song structure",
+    "title": "Intimate verse / big chorus",
+    "prompt": "Quiet intimate verses build into a clear, emotionally expansive chorus."
+  },
+  {
+    "id": "xsongstructure1",
+    "section": "Song structure",
+    "title": "Gradual build",
+    "prompt": "Begin sparsely and add layers gradually toward a final climax."
+  },
+  {
+    "id": "xsongstructure2",
+    "section": "Song structure",
+    "title": "Strong hook",
+    "prompt": "A concise, memorable chorus hook with a simple melodic shape."
+  },
+  {
+    "id": "xsongstructure3",
+    "section": "Song structure",
+    "title": "Instrumental intro",
+    "prompt": "Short instrumental introduction before the first sung verse."
+  },
+  {
+    "id": "xsongstructure4",
+    "section": "Song structure",
+    "title": "Stripped-back bridge",
+    "prompt": "Bridge drops back to voice and a single instrument before the final chorus."
+  },
+  {
+    "id": "xsongstructure5",
+    "section": "Song structure",
+    "title": "Gentle outro",
+    "prompt": "Finish with a soft instrumental outro and natural fading resonance."
+  },
+  {
+    "id": "xvocalrefinements0",
+    "section": "Vocal refinements",
+    "title": "Light vibrato",
+    "prompt": "Restrained natural vibrato, mainly on sustained phrase endings."
+  },
+  {
+    "id": "xvocalrefinements1",
+    "section": "Vocal refinements",
+    "title": "Straight tone",
+    "prompt": "Mostly straight-tone singing with little vibrato."
+  },
+  {
+    "id": "xvocalrefinements2",
+    "section": "Vocal refinements",
+    "title": "Natural diction",
+    "prompt": "Clear intelligible syllables with natural phrasing, no exaggerated enunciation."
+  },
+  {
+    "id": "xvocalrefinements3",
+    "section": "Vocal refinements",
+    "title": "Soft falsetto",
+    "prompt": "Occasional light falsetto on higher notes, with smooth transitions."
+  },
+  {
+    "id": "xvocalrefinements4",
+    "section": "Vocal refinements",
+    "title": "No vocal acrobatics",
+    "prompt": "Simple direct melody, avoiding excessive runs, melisma and dramatic belting."
+  },
+  {
+    "id": "xvocalrefinements5",
+    "section": "Vocal refinements",
+    "title": "Human imperfections",
+    "prompt": "Subtle natural breaths and small expressive imperfections, not an overprocessed delivery."
+  },
+  {
+    "id": "xvocalrefinements6",
+    "section": "Vocal refinements",
+    "title": "Lower register",
+    "prompt": "Keep most of the melody in a comfortable low-to-mid vocal register."
+  },
+  {
+    "id": "xexcludeavoid0",
+    "section": "Exclude & avoid",
+    "title": "Avoid heavy autotune",
+    "prompt": "Avoid obvious pitch-correction effects or robotic vocal tuning."
+  },
+  {
+    "id": "xexcludeavoid1",
+    "section": "Exclude & avoid",
+    "title": "Avoid excessive reverb",
+    "prompt": "Keep vocals forward and intelligible; avoid long, washy vocal reverb."
+  },
+  {
+    "id": "xexcludeavoid2",
+    "section": "Exclude & avoid",
+    "title": "Avoid choir",
+    "prompt": "No choir or large choral backing vocals."
+  },
+  {
+    "id": "xexcludeavoid3",
+    "section": "Exclude & avoid",
+    "title": "Avoid harsh distortion",
+    "prompt": "Avoid harsh clipping, fuzz and abrasive vocal distortion."
+  },
+  {
+    "id": "xexcludeavoid4",
+    "section": "Exclude & avoid",
+    "title": "Avoid busy arrangement",
+    "prompt": "Leave space around the lead vocal; avoid crowded instrumentation."
+  },
+  {
+    "id": "xexcludeavoid5",
+    "section": "Exclude & avoid",
+    "title": "Avoid vocal ad-libs",
+    "prompt": "Avoid frequent vocal ad-libs, spoken interjections and unnecessary runs."
+  }
+];
+const GROUPS=['Voices','Genres & arrangements','Emotion & delivery','Harmonies & ensembles','Production','Instrumental','Complete recipes','Languages & accents','Tempo & groove','Instruments & textures','Song structure','Vocal refinements','Exclude & avoid'];
+const ORDER=['Languages & accents','Genres & arrangements','Complete recipes','Voices','Vocal refinements','Emotion & delivery','Harmonies & ensembles','Tempo & groove','Instruments & textures','Song structure','Production','Instrumental','Exclude & avoid'];
+const PRESETS=[{name:'Acoustic storyteller',ids:['p09','p13','p25','p38']},{name:'Dreamy soprano',ids:['p02','p18','p29','p52']},{name:'Soulful ballad',ids:['p06','p15','p27','p41']},{name:'Vintage jazz',ids:['p08','p16','p39']},{name:'Moody blues',ids:['p03','p20','p51']},{name:'Cinematic instrumental',ids:['p46','p39']},{name:'Retro electronic',ids:['p21','p07','p41']}];
+const $=id=>document.getElementById(id);const safeRead=()=>{try{return JSON.parse(localStorage.getItem('pocketanthem-yue2-studio-v1')||'{}')}catch{return {}}};
+const state={selected:new Set(),filter:'All',search:'',saved:[],lyricsEnabled:false,lyrics:'',customStyle:'',singerName:'',styleOverride:null};
+let initial=safeRead();if(Array.isArray(initial.selected))state.selected=new Set(initial.selected.filter(x=>PROMPTS.some(p=>p.id===x)));if(Array.isArray(initial.saved))state.saved=initial.saved.filter(x=>x&&typeof x.name==='string'&&Array.isArray(x.selected));for(const k of ['lyrics','customStyle','singerName'])if(typeof initial[k]==='string')state[k]=initial[k];state.lyricsEnabled=!!initial.lyricsEnabled;
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>el.classList.remove('show'),2400)}
+function persist(){try{localStorage.setItem('pocketanthem-yue2-studio-v1',JSON.stringify({selected:[...state.selected],saved:state.saved,lyrics:state.lyrics,lyricsEnabled:state.lyricsEnabled,customStyle:state.customStyle,singerName:state.singerName}))}catch{}}
+function categoryCounts(){return GROUPS.map(g=>({name:g,total:PROMPTS.filter(p=>p.section===g).length,chosen:PROMPTS.filter(p=>p.section===g&&state.selected.has(p.id)).length}))}
+function renderCategories(){const cats=[{name:'All',total:PROMPTS.length,chosen:state.selected.size},...categoryCounts()];$('categories').innerHTML=cats.map(c=>`<button type="button" data-category="${esc(c.name)}" class="chip ${state.filter===c.name?'on':''}" aria-pressed="${state.filter===c.name}">${esc(c.name)} <span style="opacity:.7">${c.chosen?c.chosen+'/':''}${c.total}</span></button>`).join('');$('categories').querySelectorAll('button').forEach(b=>b.onclick=()=>{state.filter=b.dataset.category;renderCategories();renderItems()})}
+function renderItems(){const q=state.search.trim().toLowerCase();const items=PROMPTS.filter(p=>(state.filter==='All'||p.section===state.filter)&&(!q||(p.title+' '+p.prompt+' '+p.section).toLowerCase().includes(q)));$('resultCount').textContent=`${items.length} of ${PROMPTS.length} ideas · ${state.selected.size} selected`;$('items').innerHTML=items.length?items.map(p=>`<label class="item"><input type="checkbox" data-id="${p.id}" ${state.selected.has(p.id)?'checked':''}><span class="itemtitle">${esc(p.title)}</span><span class="itemprompt">${esc(p.prompt)}</span><span class="itemcat">${esc(p.section)}</span></label>`).join(''):'<div class="empty">No prompts match your search.</div>';$('items').querySelectorAll('input').forEach(el=>el.onchange=()=>{el.checked?state.selected.add(el.dataset.id):state.selected.delete(el.dataset.id);persist();renderCategories();renderItems();updateOutput()});$('selectedBadge').textContent=state.selected.size+' selected'}
+function uniq(lines){let seen=new Set();return lines.filter(s=>{let k=s.toLowerCase().trim();if(!k||seen.has(k))return false;seen.add(k);return true})}
+function compose(){let a=PROMPTS.filter(p=>state.selected.has(p.id)).sort((x,y)=>ORDER.indexOf(x.section)-ORDER.indexOf(y.section)).map(p=>p.prompt.trim().replace(/[.。]+$/,''));if(state.customStyle.trim())a.push(state.customStyle.trim().replace(/[.。]+$/,''));return uniq(a).join('; ')+(a.length?'.':'')}
+function updateOutput(force=false){if(force||state.styleOverride===null){$('styleOutput').value=compose();state.styleOverride=null}let text=$('styleOutput').value;$('partsStat').textContent=state.selected.size+' selected';$('charsStat').textContent=text.length+' characters';$('wordsStat').textContent=(text.trim()?text.trim().split(/\s+/).length:0)+' words';const chosen=PROMPTS.filter(p=>state.selected.has(p.id));let issues=[];if(chosen.some(p=>p.section==='Instrumental')&&chosen.some(p=>['Voices','Harmonies & ensembles','Vocal refinements'].includes(p.section)))issues.push('Instrumental and vocal instructions are mixed. Remove one set for a clearer result.');if(chosen.filter(p=>p.section==='Complete recipes').length>1)issues.push('Multiple full-song recipes can compete. Consider using only one.');if(text.length>1000)issues.push('This is a long style prompt. YuE2 may respond better to fewer, more focused instructions.');$('warning').hidden=!issues.length;$('warning').textContent=issues.join(' ')}
+function renderPresetGrid(){$('presetGrid').innerHTML=PRESETS.map((p,i)=>`<button data-i="${i}" class="ghost">${esc(p.name)}</button>`).join('');$('presetGrid').querySelectorAll('button').forEach(b=>b.onclick=()=>usePreset(PRESETS[Number(b.dataset.i)]))}
+function usePreset(p){state.selected=new Set(p.ids);state.styleOverride=null;persist();renderCategories();renderItems();updateOutput(true);toast('Loaded '+p.name)}
+function fullText(){let s='STYLE:\n'+$('styleOutput').value.trim();if($('lyricsEnabled').checked&&$('lyrics').value.trim())s+='\n\nLYRICS:\n'+$('lyrics').value.trim();return s}
+async function copyText(s){if(!s.trim()){toast('Nothing to copy yet');return}try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(s);toast('Copied to clipboard');return}}catch{}const t=document.createElement('textarea');t.value=s;t.style.cssText='position:fixed;top:0;left:0;opacity:0';document.body.append(t);t.select();t.setSelectionRange(0,s.length);try{if(document.execCommand('copy'))toast('Copied to clipboard');else throw Error('Copy unavailable')}catch{toast('Select the prompt and use Copy')}finally{t.remove()}}
+function saveFile(content,name,mime){const blob=new Blob([content],{type:mime});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
+function updateSaved(){let previous=$('savedSelect').value;$('savedSelect').innerHTML='<option value="">Choose a saved combination…</option>'+state.saved.map((x,i)=>`<option value="${i}">${esc(x.name)}</option>`).join('');if(previous&&Number(previous)<state.saved.length)$('savedSelect').value=previous}
+$('search').oninput=e=>{state.search=e.target.value;renderItems()};$('clearSearch').onclick=()=>{$('search').value='';state.search='';renderItems()};$('customStyle').value=state.customStyle;$('lyrics').value=state.lyrics;$('lyricsEnabled').checked=state.lyricsEnabled;$('singerName').value=state.singerName;
+$('customStyle').oninput=e=>{state.customStyle=e.target.value;state.styleOverride=null;persist();updateOutput(true)};$('styleOutput').oninput=e=>{state.styleOverride=e.target.value;updateOutput()};$('lyrics').oninput=e=>{state.lyrics=e.target.value;persist()};$('lyricsEnabled').onchange=e=>{state.lyricsEnabled=e.target.checked;persist()};$('singerName').oninput=e=>{state.singerName=e.target.value;persist()};
+$('copyStyle').onclick=()=>copyText($('styleOutput').value);$('copyFull').onclick=()=>copyText(fullText());$('copyLyrics').onclick=()=>copyText($('lyrics').value);$('refreshStyle').onclick=()=>{state.styleOverride=null;updateOutput(true);toast('Style rebuilt from selections')};
+$('demoLyrics').onclick=()=>{if($('lyrics').value.trim()&&!confirm('Replace your current lyrics with the example layout?'))return;$('lyrics').value='[Verse]\nThe morning light is breaking through\nA thousand dreams are coming true\n\n[Chorus]\nWe carry on, we find our way\nA brighter song for every day\n\n[Bridge]\nA quiet hope beneath the stars\n\n[Outro]\nWe find our way';state.lyrics=$('lyrics').value;$('lyricsEnabled').checked=true;state.lyricsEnabled=true;persist();toast('Example lyrics inserted')};
+$('downloadTxt').onclick=()=>saveFile(fullText(),'PocketAnthem-YuE2-Prompt.txt','text/plain;charset=utf-8');$('resetBtn').onclick=()=>{if(!confirm('Clear all selected prompt ingredients? Your saved combinations and lyrics will remain.'))return;state.selected.clear();state.styleOverride=null;persist();renderCategories();renderItems();updateOutput(true);toast('Selection cleared')};
+$('presetBtn').onclick=()=>usePreset(PRESETS[Math.floor(Math.random()*PRESETS.length)]);
+$('saveBtn').onclick=()=>{const name=$('saveName').value.trim()||'My sound '+(state.saved.length+1);const entry={name,selected:[...state.selected],customStyle:state.customStyle,lyrics:state.lyrics,lyricsEnabled:state.lyricsEnabled,singerName:state.singerName};const found=state.saved.findIndex(x=>x.name.toLowerCase()===name.toLowerCase());if(found>=0&&!confirm('Overwrite the saved combination called "'+name+'"?'))return;if(found>=0)state.saved[found]=entry;else state.saved.push(entry);persist();updateSaved();$('saveName').value='';toast('Saved '+name)};
+$('loadBtn').onclick=()=>{const i=$('savedSelect').value;if(i===''){toast('Choose a saved combination');return}const x=state.saved[Number(i)];if(!x)return;state.selected=new Set(x.selected.filter(k=>PROMPTS.some(p=>p.id===k)));for(const k of ['customStyle','lyrics','singerName'])state[k]=String(x[k]||'');state.lyricsEnabled=!!x.lyricsEnabled;state.styleOverride=null;$('customStyle').value=state.customStyle;$('lyrics').value=state.lyrics;$('lyricsEnabled').checked=state.lyricsEnabled;$('singerName').value=state.singerName;persist();renderCategories();renderItems();updateOutput(true);toast('Loaded '+x.name)};
+$('deleteBtn').onclick=()=>{const i=$('savedSelect').value;if(i===''||!state.saved[Number(i)]){toast('Choose a saved combination');return}if(!confirm('Delete this saved combination?'))return;state.saved.splice(Number(i),1);persist();updateSaved();toast('Saved combination deleted')};
+$('exportBtn').onclick=()=>saveFile(JSON.stringify({version:1,exportedAt:new Date().toISOString(),selected:[...state.selected],saved:state.saved,lyrics:state.lyrics,lyricsEnabled:state.lyricsEnabled,customStyle:state.customStyle,singerName:state.singerName},null,2),'PocketAnthem-Prompt-Studio-Backup.json','application/json');
+$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.version!==1||!Array.isArray(d.saved)||!Array.isArray(d.selected))throw Error('Invalid backup');if(!confirm('Import this backup? This replaces current selections and saved combinations.'))return;state.saved=d.saved.filter(x=>x&&typeof x.name==='string'&&Array.isArray(x.selected)).slice(0,300);state.selected=new Set(d.selected.filter(x=>PROMPTS.some(p=>p.id===x)));for(const k of ['lyrics','customStyle','singerName'])state[k]=typeof d[k]==='string'?d[k]:'';state.lyricsEnabled=!!d.lyricsEnabled;state.styleOverride=null;$('lyrics').value=state.lyrics;$('customStyle').value=state.customStyle;$('singerName').value=state.singerName;$('lyricsEnabled').checked=state.lyricsEnabled;persist();updateSaved();renderCategories();renderItems();updateOutput(true);toast('Backup imported')}catch(err){toast('Could not import: '+err.message)}finally{e.target.value=''}};
+renderCategories();renderItems();renderPresetGrid();updateOutput(true);updateSaved();
+</script></body></html>
